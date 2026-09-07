@@ -105,8 +105,9 @@ The tool tells you which of these apply to *your* export rather than making you 
 ## Security
 
 - **Nothing leaves your machine.** No network calls anywhere in the tool.
-- **Scratch space is RAM-backed** (`/dev/shm`, else `/run/user/$UID`) so plaintext never reaches disk when it can be helped. Falls back to the system temp dir elsewhere.
+- **Scratch space is RAM-backed** (`/dev/shm`, else `/run/user/$UID`) so plaintext never reaches disk when it can be helped.
 - **All output is `0600`.**
+- On **Windows** neither of those applies — there is no RAM-backed temp dir and POSIX modes are not meaningful, so output lands on disk with default permissions. The tool says so at runtime. Run `clean` promptly.
 - **Secrets never touch `argv`.**
 - **`.gitignore` blocks `*.csv`** so you can't accidentally commit a vault into this repo.
 

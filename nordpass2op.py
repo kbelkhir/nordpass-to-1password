@@ -510,7 +510,10 @@ def direct_import(buckets, vault, dry_run=False):
 
 def secure_tmp_base():
     """RAM-backed scratch space where available, so plaintext never hits disk."""
-    for cand in ("/dev/shm", "/run/user/%d" % os.getuid()):
+    cands = []
+    if hasattr(os, "getuid"):          # POSIX only; Windows has neither
+        cands = ["/dev/shm", f"/run/user/{os.getuid()}"]
+    for cand in cands:
         if os.path.isdir(cand) and os.access(cand, os.W_OK):
             return cand
     return tempfile.gettempdir()
@@ -521,6 +524,9 @@ def make_workspace():
     path = tempfile.mkdtemp(prefix="nordpass2op-", dir=base)
     os.chmod(path, 0o700)
     ram = base != tempfile.gettempdir()
+    if not ram:
+        warn("no RAM-backed temp dir on this platform; output goes to disk. "
+             "Run `nordpass2op clean` when you are done.")
     return path, ram
 
 

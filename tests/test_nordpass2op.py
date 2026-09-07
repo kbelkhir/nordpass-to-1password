@@ -103,6 +103,7 @@ class TestCsvOutput(unittest.TestCase):
         self.assertEqual(gh["password"], 'p@ss,w"rd\\x')
         self.assertIn("line two, with comma", gh["notes"])
 
+    @unittest.skipIf(os.name == "nt", "POSIX file modes are not meaningful on Windows")
     def test_files_are_private(self):
         for fn in os.listdir(self.dir):
             mode = os.stat(os.path.join(self.dir, fn)).st_mode & 0o777
@@ -149,6 +150,24 @@ class TestOpTemplates(unittest.TestCase):
     def test_no_empty_fields_emitted(self):
         t = self._tmpl("card", "Amex")
         self.assertTrue(all(f.get("value") for f in t["fields"]))
+
+
+class TestPlatform(unittest.TestCase):
+    def test_secure_tmp_base_works_everywhere(self):
+        """Must not raise on Windows, where os.getuid does not exist."""
+        base = n2.secure_tmp_base()
+        self.assertTrue(os.path.isdir(base))
+
+    def test_workspace_creates_usable_dir(self):
+        path, _ram = n2.make_workspace()
+        try:
+            self.assertTrue(os.path.isdir(path))
+            probe = os.path.join(path, "probe")
+            with open(probe, "w") as fh:
+                fh.write("x")
+            self.assertTrue(os.path.exists(probe))
+        finally:
+            import shutil; shutil.rmtree(path, ignore_errors=True)
 
 
 class TestShred(unittest.TestCase):
