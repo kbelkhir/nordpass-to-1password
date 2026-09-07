@@ -1,5 +1,7 @@
 # nordpass-to-1password
 
+[![tests](https://github.com/kbelkhir/nordpass-to-1password/actions/workflows/ci.yml/badge.svg)](https://github.com/kbelkhir/nordpass-to-1password/actions/workflows/ci.yml) [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![python](https://img.shields.io/badge/python-3.9%2B-blue) ![deps](https://img.shields.io/badge/dependencies-none-brightgreen)
+
 Migrate a NordPass export into 1Password — without hand-editing CSVs, and without leaving your passwords scattered across your disk afterwards.
 
 ```bash
