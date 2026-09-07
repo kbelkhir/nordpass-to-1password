@@ -1,0 +1,16 @@
+# NEVER commit a vault export. This is the whole point.
+*.csv
+!tests/fixtures/*.csv
+*.json
+!.github/**/*.json
+*.1pux
+*.1pif
+*.kdbx
+*.swp
+*.swo
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/

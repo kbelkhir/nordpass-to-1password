@@ -1,0 +1,13 @@
+﻿name,url,additional_urls,username,password,note,cardholdername,cardnumber,cvc,pin,expirydate,zipcode,folder,shared_folder,full_name,phone_number,email,address1,address2,city,country,state,type,custom_fields
+GitHub,https://github.com,,octocat,"p@ss,w""rd\x","line one
+line two, with comma",,,,,,,Dev,,,,,,,,,,password,"[{""label"":""recovery"",""value"":""abc""},{""label"":""TOTP"",""value"":""otpauth://totp/GitHub?secret=JBSWY3DPEHPK3PXP""}]"
+Dev,,,,,,,,,,,,,,,,,,,,,,folder,
+,https://untitled.example,,u,pw,,,,,,,,,,,,,,,,,,password,
+Wifi,,,,,"SSID: home
+key: hunter2, really",,,,,,,Home,,,,,,,,,,note,
+Visa,,,,,,A B,4111111111111111,123,0000,7/28,75001,,,,,,,,,,,credit_card,
+Amex,,,,,,,378282246310005,,,2029-03,,,,,,,,,,,,credit_card,
+BadExp,,,,,,,4000000000000002,,,next year,,,,,,,,,,,,credit_card,
+Me,,,,,,,,,,,,,,A B,+1,a@b.c,,,Paris,FR,,identity,
+GooglePK,https://google.com,,,,,,,,,,,,,,,,,,,,,passkey,
+OddType,https://weird.example,,x,y,,,,,,,,,,,,,,,,,,mystery_type,

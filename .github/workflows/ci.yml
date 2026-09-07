@@ -1,0 +1,27 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ["3.9", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Run tests
+        run: python -W error::ResourceWarning tests/test_nordpass2op.py
+      - name: Smoke test the CLI
+        run: |
+          python nordpass2op.py --version
+          python nordpass2op.py convert tests/fixtures/sample-nordpass.csv -o out
+          python nordpass2op.py direct tests/fixtures/sample-nordpass.csv --dry-run --vault Demo
